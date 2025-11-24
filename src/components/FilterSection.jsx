@@ -80,9 +80,9 @@ const FilterSection = ({ filters, onFilterChange, onClearFilters }) => {
             className="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 bg-white text-gray-800 text-sm focus:outline-none focus:border-[#2B9BB8] focus:ring-4 focus:ring-blue-100 transition-all hover:border-gray-300 cursor-pointer"
           >
             <option value="">Todas as datas</option>
-            <option value="hoje">📅 Hoje</option>
-            <option value="semana">📆 Esta semana</option>
-            <option value="mes">🗓️ Este mês</option>
+            <option value="hoje">Hoje</option>
+            <option value="semana">Esta semana</option>
+            <option value="mes">Este mês</option>
           </select>
         </div>
 
@@ -100,8 +100,8 @@ const FilterSection = ({ filters, onFilterChange, onClearFilters }) => {
             className="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 bg-white text-gray-800 text-sm focus:outline-none focus:border-[#2B9BB8] focus:ring-4 focus:ring-blue-100 transition-all hover:border-gray-300 cursor-pointer"
           >
             <option value="">Todas</option>
-            <option value="presencial">🏢 Presencial</option>
-            <option value="online">🌐 Online</option>
+            <option value="presencial">Presencial</option>
+            <option value="online">Online</option>
           </select>
         </div>
       </div>
