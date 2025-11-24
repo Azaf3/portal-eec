@@ -39,27 +39,27 @@ const Inscrever = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-8 py-12">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-3">
             Inscreva-se em um Evento
           </h1>
-          <p className="text-xl text-gray-200">
+          <p className="text-xl text-gray-600">
             Preencha o formulário abaixo e garanta sua vaga!
           </p>
         </div>
 
         {/* Form */}
-        <div className="glass-strong rounded-2xl p-8 md:p-12">
+        <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-8 md:p-12 shadow-lg">
           {submitted ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">✅</div>
-              <h2 className="text-3xl font-bold text-white mb-3">
+              <h2 className="text-3xl font-bold text-gray-800 mb-3">
                 Inscrição Enviada com Sucesso!
               </h2>
-              <p className="text-gray-200 text-lg">
+              <p className="text-gray-600 text-lg">
                 Em breve você receberá um email de confirmação.
               </p>
             </div>
@@ -67,7 +67,7 @@ const Inscrever = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Nome */}
               <div>
-                <label htmlFor="nome" className="block text-white font-medium mb-2">
+                <label htmlFor="nome" className="block text-gray-700 font-semibold mb-2">
                   Nome Completo *
                 </label>
                 <input
@@ -77,14 +77,14 @@ const Inscrever = () => {
                   value={formData.nome}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-200 transition-all"
                   placeholder="Digite seu nome completo"
                 />
               </div>
 
               {/* Email */}
               <div>
-                <label htmlFor="email" className="block text-white font-medium mb-2">
+                <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
                   Email *
                 </label>
                 <input
@@ -94,14 +94,14 @@ const Inscrever = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-200 transition-all"
                   placeholder="seu@email.com"
                 />
               </div>
 
               {/* Telefone */}
               <div>
-                <label htmlFor="telefone" className="block text-white font-medium mb-2">
+                <label htmlFor="telefone" className="block text-gray-700 font-semibold mb-2">
                   Telefone *
                 </label>
                 <input
@@ -111,14 +111,14 @@ const Inscrever = () => {
                   value={formData.telefone}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-200 transition-all"
                   placeholder="(00) 00000-0000"
                 />
               </div>
 
               {/* Evento */}
               <div>
-                <label htmlFor="evento" className="block text-white font-medium mb-2">
+                <label htmlFor="evento" className="block text-gray-700 font-semibold mb-2">
                   Escolha o Evento *
                 </label>
                 <select
@@ -127,7 +127,7 @@ const Inscrever = () => {
                   value={formData.evento}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-800 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-200 transition-all"
                 >
                   <option value="" className="bg-gray-800">Selecione um evento</option>
                   <option value="workshop-react" className="bg-gray-800">Workshop de React Avançado</option>
@@ -140,7 +140,7 @@ const Inscrever = () => {
 
               {/* Mensagem */}
               <div>
-                <label htmlFor="mensagem" className="block text-white font-medium mb-2">
+                <label htmlFor="mensagem" className="block text-gray-700 font-semibold mb-2">
                   Mensagem (Opcional)
                 </label>
                 <textarea
@@ -149,7 +149,7 @@ const Inscrever = () => {
                   value={formData.mensagem}
                   onChange={handleChange}
                   rows="4"
-                  className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary transition-all resize-none"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-200 transition-all resize-none"
                   placeholder="Alguma dúvida ou comentário?"
                 />
               </div>
@@ -157,12 +157,12 @@ const Inscrever = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full px-6 py-4 bg-primary hover:bg-secondary text-white rounded-lg font-bold text-lg transition-all hover:scale-105 shadow-xl"
+                className="btn-brand"
               >
                 Confirmar Inscrição
               </button>
 
-              <p className="text-sm text-gray-300 text-center">
+              <p className="text-sm text-gray-600 text-center">
                 * Campos obrigatórios
               </p>
             </form>
@@ -170,12 +170,12 @@ const Inscrever = () => {
         </div>
 
         {/* Info Box */}
-        <div className="glass rounded-xl p-6 mt-8">
-          <h3 className="text-xl font-bold text-white mb-3 flex items-center">
+        <div className="bg-white/70 backdrop-blur-xl rounded-2xl p-6 mt-8 shadow-md">
+          <h3 className="text-xl font-bold text-gray-800 mb-3 flex items-center">
             <span className="mr-2">ℹ️</span>
             Informações Importantes
           </h3>
-          <ul className="space-y-2 text-gray-200">
+          <ul className="space-y-2 text-gray-600">
             <li className="flex items-start">
               <span className="mr-2">•</span>
               Após a inscrição, você receberá um email de confirmação em até 24h

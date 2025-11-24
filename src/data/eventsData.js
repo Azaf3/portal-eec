@@ -1,6 +1,118 @@
 const eventsData = [
   {
     id: 1,
+    title: "Festival do Conhecimento",
+    description: "Celebração da cultura e do saber com palestras, oficinas e apresentações artísticas.",
+    date: "2025-12-10",
+    time: "09:00",
+    location: "Campus Principal",
+    category: "festival",
+    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=300&fit=crop",
+    spots: 200,
+    availableSpots: 145,
+    instructor: "Vários palestrantes",
+    featured: true
+  },
+  {
+    id: 2,
+    title: "Jornada Cultural Acadêmica",
+    description: "Uma imersão em diferentes áreas do conhecimento com foco em desenvolvimento pessoal e profissional.",
+    date: "2025-12-12",
+    time: "14:00",
+    location: "Auditório Central",
+    category: "workshop",
+    image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=500&h=300&fit=crop",
+    spots: 150,
+    availableSpots: 89,
+    instructor: "Equipe Pedagógica",
+    featured: true
+  },
+  {
+    id: 3,
+    title: "Expo Educação & Cultura",
+    description: "Feira interativa com stands, demonstrações e atividades educacionais para todas as idades.",
+    date: "2025-12-15",
+    time: "10:00",
+    location: "Ginásio de Eventos",
+    category: "feira",
+    image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=500&h=300&fit=crop",
+    spots: 300,
+    availableSpots: 256,
+    instructor: "Múltiplos expositores",
+    featured: true
+  },
+  {
+    id: 4,
+    title: "Semana Interativa do Saber",
+    description: "Programação diversificada com debates, mesas redondas e atividades práticas sobre educação.",
+    date: "2025-12-18",
+    time: "08:00",
+    location: "Diversos espaços do campus",
+    category: "evento",
+    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=500&h=300&fit=crop",
+    spots: 250,
+    availableSpots: 198,
+    instructor: "Professores e convidados",
+    featured: true
+  },
+  {
+    id: 5,
+    title: "Conexão Arte & Aprendizagem",
+    description: "Encontro que une expressão artística e metodologias inovadoras de ensino.",
+    date: "2025-12-20",
+    time: "15:00",
+    location: "Centro Cultural",
+    category: "workshop",
+    image: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=500&h=300&fit=crop",
+    spots: 80,
+    availableSpots: 34,
+    instructor: "Artistas e educadores",
+    featured: true
+  },
+  {
+    id: 6,
+    title: "Palestra: Carreira em Tech",
+    description: "Dicas práticas para iniciar e crescer na carreira de tecnologia, com cases reais.",
+    date: "2026-02-01",
+    time: "20:00",
+    location: "Auditório Principal",
+    category: "palestra",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop",
+    spots: 120,
+    availableSpots: 45,
+    instructor: "Tech Leaders",
+    featured: true
+  },
+  {
+    id: 7,
+    title: "Workshop: DevOps na AWS",
+    description: "Implemente pipelines CI/CD completos na AWS com Docker, Kubernetes e ferramentas modernas.",
+    date: "2026-02-05",
+    time: "14:00",
+    location: "Lab Cloud Computing",
+    category: "workshop",
+    image: "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=500&h=300&fit=crop",
+    spots: 35,
+    availableSpots: 12,
+    instructor: "Eng. DevOps Pedro Lima",
+    featured: true
+  },
+  {
+    id: 8,
+    title: "Curso: React Native - Apps Mobile",
+    description: "Desenvolva aplicativos móveis nativos para iOS e Android usando React Native.",
+    date: "2026-02-10",
+    time: "19:00",
+    location: "Online",
+    category: "curso",
+    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500&h=300&fit=crop",
+    spots: 50,
+    availableSpots: 38,
+    instructor: "Dev Mobile Júlia Ferreira",
+    featured: true
+  },
+  {
+    id: 9,
     title: "Workshop de React Avançado",
     description: "Aprenda técnicas avançadas de React com hooks customizados e otimização de performance.",
     date: "2025-12-15",
@@ -11,10 +123,10 @@ const eventsData = [
     spots: 50,
     availableSpots: 23,
     instructor: "Prof. João Silva",
-    featured: true
+    featured: false
   },
   {
-    id: 2,
+    id: 10,
     title: "Palestra: Inteligência Artificial na Prática",
     description: "Descubra como IA está transformando o mercado de tecnologia e quais são as oportunidades.",
     date: "2025-12-20",
@@ -25,10 +137,10 @@ const eventsData = [
     spots: 100,
     availableSpots: 67,
     instructor: "Dra. Maria Santos",
-    featured: true
+    featured: false
   },
   {
-    id: 3,
+    id: 11,
     title: "Hackathon EEC 2025",
     description: "48 horas de desafios, networking e prêmios incríveis! Mostre suas habilidades em desenvolvimento.",
     date: "2026-01-10",
@@ -39,10 +151,10 @@ const eventsData = [
     spots: 80,
     availableSpots: 15,
     instructor: "Equipe EEC",
-    featured: true
+    featured: false
   },
   {
-    id: 4,
+    id: 12,
     title: "Curso: Python para Ciência de Dados",
     description: "Domine Python, pandas, numpy e visualização de dados em 8 semanas intensivas.",
     date: "2026-01-15",
@@ -56,7 +168,7 @@ const eventsData = [
     featured: false
   },
   {
-    id: 5,
+    id: 13,
     title: "Workshop: Design System com Figma",
     description: "Aprenda a criar e manter design systems profissionais usando Figma e componentização.",
     date: "2026-01-22",
@@ -67,48 +179,6 @@ const eventsData = [
     spots: 30,
     availableSpots: 8,
     instructor: "Designer Ana Costa",
-    featured: false
-  },
-  {
-    id: 6,
-    title: "Palestra: Carreira em Tech",
-    description: "Dicas práticas para iniciar e crescer na carreira de tecnologia, com cases reais.",
-    date: "2026-02-01",
-    time: "20:00",
-    location: "Auditório Principal",
-    category: "palestra",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&h=300&fit=crop",
-    spots: 150,
-    availableSpots: 120,
-    instructor: "Profissionais da Indústria",
-    featured: false
-  },
-  {
-    id: 7,
-    title: "Curso: DevOps e Cloud AWS",
-    description: "Aprenda Docker, Kubernetes, CI/CD e deploy na AWS com projetos práticos.",
-    date: "2026-02-10",
-    time: "19:00",
-    location: "Online",
-    category: "curso",
-    image: "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=500&h=300&fit=crop",
-    spots: 35,
-    availableSpots: 28,
-    instructor: "Eng. Pedro Lima",
-    featured: false
-  },
-  {
-    id: 8,
-    title: "Workshop: Mobile com React Native",
-    description: "Construa aplicativos mobile multiplataforma com React Native e Expo.",
-    date: "2026-02-18",
-    time: "14:00",
-    location: "Lab. Mobile",
-    category: "workshop",
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500&h=300&fit=crop",
-    spots: 25,
-    availableSpots: 10,
-    instructor: "Dev. Juliana Ferreira",
     featured: false
   }
 ];
