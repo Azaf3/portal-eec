@@ -55,7 +55,7 @@ const Inscrever = () => {
         <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-8 md:p-12 shadow-lg">
           {submitted ? (
             <div className="text-center py-12">
-              <div className="text-6xl mb-4">✅</div>
+              <div className="text-6xl mb-4"></div>
               <h2 className="text-3xl font-bold text-gray-800 mb-3">
                 Inscrição Enviada com Sucesso!
               </h2>

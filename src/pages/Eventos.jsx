@@ -133,7 +133,7 @@ const Eventos = () => {
         </>
       ) : (
         <div className="bg-white/60 backdrop-blur-xl rounded-2xl p-12 text-center">
-          <div className="text-6xl mb-4">🔍</div>
+          <div className="text-6xl mb-4"></div>
           <h3 className="text-2xl font-bold text-gray-800 mb-2">
             Nenhum evento encontrado
           </h3>

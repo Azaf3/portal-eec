@@ -57,12 +57,12 @@ const FilterSection = ({ filters, onFilterChange, onClearFilters }) => {
             className="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 bg-white text-gray-800 text-sm focus:outline-none focus:border-[#2B9BB8] focus:ring-4 focus:ring-blue-100 transition-all hover:border-gray-300 cursor-pointer"
           >
             <option value="">Todos os tipos</option>
-            <option value="workshop">🛠️ Workshop</option>
-            <option value="palestra">🎤 Palestra</option>
-            <option value="hackathon">💻 Hackathon</option>
-            <option value="curso">📚 Curso</option>
-            <option value="festival">🎉 Festival</option>
-            <option value="feira">🎪 Feira</option>
+            <option value="workshop">Workshop</option>
+            <option value="palestra">Palestra</option>
+            <option value="hackathon">Hackathon</option>
+            <option value="curso">Curso</option>
+            <option value="festival">Festival</option>
+            <option value="feira">Feira</option>
           </select>
         </div>
 
