@@ -6,13 +6,13 @@ const FilterSection = ({ filters, onFilterChange, onClearFilters }) => {
   return (
     <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-xl p-8 mb-12 border border-blue-100">
       <div className="flex justify-between items-center mb-6">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-[#2B9BB8] rounded-xl flex items-center justify-center">
-            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-[#2B9BB8] rounded-lg flex items-center justify-center">
+            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
             </svg>
           </div>
-          <h3 className="text-xl font-bold text-gray-800">Filtrar Eventos</h3>
+          <h3 className="text-xl font-bold text-gray-800">Pesquisar eventos</h3>
         </div>
         {activeFiltersCount > 0 && (
           <div className="px-4 py-2 bg-blue-100 rounded-full">
@@ -43,7 +43,6 @@ const FilterSection = ({ filters, onFilterChange, onClearFilters }) => {
           </div>
         </div>
 
-        {/* Tipo de evento */}
         <div>
           <label className="block text-sm font-bold text-gray-700 mb-2 flex items-center gap-2">
             <svg className="w-4 h-4 text-[#2B9BB8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -66,7 +65,6 @@ const FilterSection = ({ filters, onFilterChange, onClearFilters }) => {
           </select>
         </div>
 
-        {/* Data do evento */}
         <div>
           <label className="block text-sm font-bold text-gray-700 mb-2 flex items-center gap-2">
             <svg className="w-4 h-4 text-[#2B9BB8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -86,7 +84,6 @@ const FilterSection = ({ filters, onFilterChange, onClearFilters }) => {
           </select>
         </div>
 
-        {/* Modalidade */}
         <div>
           <label className="block text-sm font-bold text-gray-700 mb-2 flex items-center gap-2">
             <svg className="w-4 h-4 text-[#2B9BB8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">

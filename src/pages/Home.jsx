@@ -94,20 +94,16 @@ const Home = () => {
 
   return (
     <>
-      {/* Hero Section - Full Width */}
       <div className="w-full relative h-40 md:h-48 overflow-hidden">
-        {/* Background Image */}
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: 'url(https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=600&fit=crop)',
           }}
         >
-          {/* Overlay com gradiente azul da logo mais sutil */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#2B9BB8]/70 to-[#2D5A8C]/70"></div>
         </div>
-        
-        {/* Content */}
+
         <div className="relative z-10 container mx-auto px-8 h-full flex flex-col justify-center items-center text-center">
           <h1 className="text-xl md:text-3xl font-bold text-white mb-2 tracking-tight" style={{ fontFamily: 'Poppins, sans-serif' }}>
             Conectando você ao conhecimento
@@ -118,16 +114,13 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="container mx-auto px-8 py-12">
-        {/* Filter Card */}
         <FilterSection 
           filters={filters}
           onFilterChange={handleFilterChange}
           onClearFilters={handleClearFilters}
         />
 
-        {/* Events Title */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-800 mb-2">
             Eventos em <span className="gradient-brand-text">Destaque</span>
@@ -135,7 +128,6 @@ const Home = () => {
           <p className="text-gray-600">{filteredEvents.length} eventos encontrados</p>
         </div>
 
-        {/* Featured Events Grid */}
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {[1, 2, 3, 4].map(i => (
@@ -159,7 +151,6 @@ const Home = () => {
         )}
       </div>
 
-      {/* Modal com Backdrop Blur */}
       {selectedEvent && (
         <div 
           className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 p-6 animate-fadeIn"
@@ -169,7 +160,6 @@ const Home = () => {
             className="bg-white/95 backdrop-blur-xl rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Image Header */}
             <div className="relative h-72 overflow-hidden rounded-t-3xl">
               <img 
                 src={selectedEvent.image} 
@@ -186,17 +176,16 @@ const Home = () => {
                 </svg>
               </button>
             </div>
-            
-            {/* Content */}
+
             <div className="p-10">
               <h2 className="text-4xl font-black text-gray-800 mb-4">
                 {selectedEvent.title}
               </h2>
-              
+
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
                 {selectedEvent.description}
               </p>
-              
+
               <div className="space-y-4 mb-8">
                 <div className="flex items-center text-gray-700">
                   <div className="w-12 h-12 rounded-2xl bg-[#2B9BB8]/10 flex items-center justify-center mr-4">
@@ -209,7 +198,7 @@ const Home = () => {
                     <p className="text-base font-semibold">{new Date(selectedEvent.date).toLocaleDateString('pt-BR')} às {selectedEvent.time}</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center text-gray-700">
                   <div className="w-12 h-12 rounded-2xl bg-[#2B9BB8]/10 flex items-center justify-center mr-4">
                     <svg className="w-6 h-6 text-[#2B9BB8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -221,7 +210,7 @@ const Home = () => {
                     <p className="text-base font-semibold">{selectedEvent.location}</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center text-gray-700">
                   <div className="w-12 h-12 rounded-2xl bg-[#2B9BB8]/10 flex items-center justify-center mr-4">
                     <svg className="w-6 h-6 text-[#2B9BB8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -234,8 +223,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              
-              {/* Formulário de Inscrição ou Botão */}
+
               {formSubmitted ? (
                 <div className="bg-green-50 border-2 border-green-200 rounded-2xl p-6 text-center">
                   <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -260,7 +248,7 @@ const Home = () => {
                       placeholder="Seu nome completo"
                     />
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">E-mail</label>
                     <input
@@ -273,7 +261,7 @@ const Home = () => {
                       placeholder="seu@email.com"
                     />
                   </div>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2">Telefone</label>
@@ -287,7 +275,7 @@ const Home = () => {
                         placeholder="(11) 98765-4321"
                       />
                     </div>
-                    
+
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2">CPF</label>
                       <input
@@ -301,7 +289,7 @@ const Home = () => {
                       />
                     </div>
                   </div>
-                  
+
                   <div className="flex gap-3 pt-4">
                     <button
                       type="button"

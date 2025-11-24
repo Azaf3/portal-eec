@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import EventCard from '../components/EventCard';
 import FilterSection from '../components/FilterSection';
 import SkeletonCard from '../components/SkeletonCard';
@@ -8,6 +8,11 @@ const Eventos = () => {
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
+  const [sortBy, setSortBy] = useState('dateAsc');
+  const [viewMode, setViewMode] = useState('grid');
+  const [favorites, setFavorites] = useState([]);
+  const [selectedCalendarDate, setSelectedCalendarDate] = useState(() => new Date());
+  const [calendarSelectedDay, setCalendarSelectedDay] = useState(null);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showSubscriptionForm, setShowSubscriptionForm] = useState(false);
   const [formData, setFormData] = useState({
@@ -31,47 +36,106 @@ const Eventos = () => {
       setLoading(false);
     }, 800);
   }, []);
+  const [page, setPage] = useState(1);
+  const perPage = 9;
 
   useEffect(() => {
-    let filtered = events;
+    const fav = JSON.parse(localStorage.getItem('favorites') || '[]');
+    setFavorites(fav);
+  }, []);
 
+  useEffect(() => {
+    let res = [...events];
     if (filters.search) {
-      filtered = filtered.filter(event =>
-        event.title.toLowerCase().includes(filters.search.toLowerCase())
-      );
+      const s = filters.search.toLowerCase();
+      res = res.filter(ev => ev.title.toLowerCase().includes(s) || (ev.description || '').toLowerCase().includes(s));
     }
-
     if (filters.type) {
-      filtered = filtered.filter(event => event.category === filters.type);
+      res = res.filter(ev => ev.category === filters.type);
     }
-
+    if (filters.date) {
+      res = res.filter(ev => ev.date === filters.date);
+    }
     if (filters.modality) {
-      filtered = filtered.filter(event => 
-        filters.modality === 'presencial' ? event.location !== 'Online' : event.location === 'Online'
-      );
+      res = res.filter(ev => ev.modality === filters.modality);
     }
 
-    setFilteredEvents(filtered);
-  }, [filters, events]);
+    
+    switch (sortBy) {
+      case 'dateAsc':
+        res.sort((a,b) => new Date(a.date) - new Date(b.date));
+        break;
+      case 'dateDesc':
+        res.sort((a,b) => new Date(b.date) - new Date(a.date));
+        break;
+      case 'title_asc':
+      case 'titleAsc':
+        res.sort((a,b) => a.title.localeCompare(b.title));
+        break;
+      case 'spots':
+        res.sort((a,b) => (b.availableSpots||0) - (a.availableSpots||0));
+        break;
+      case 'popular':
+        res.sort((a,b) => (b.featured?1:0) - (a.featured?1:0));
+        break;
+      default:
+        break;
+    }
 
-  const handleFilterChange = (filterName, value) => {
-    setFilters(prev => ({ ...prev, [filterName]: value }));
+    setFilteredEvents(res);
+    setPage(1);
+  }, [filters, events, sortBy]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredEvents.length / perPage));
+  const paginatedEvents = filteredEvents.slice((page - 1) * perPage, page * perPage);
+
+  const handleFilterChange = (name, value) => {
+    setFilters(prev => ({ ...prev, [name]: value }));
   };
 
   const handleClearFilters = () => {
     setFilters({ search: '', type: '', date: '', modality: '' });
   };
 
-  const handleCardClick = (event) => {
-    setSelectedEvent(event);
+  const openModal = (ev) => {
+    setSelectedEvent(ev);
+    setShowSubscriptionForm(false);
+    setFormSubmitted(false);
   };
 
   const closeModal = () => {
     setSelectedEvent(null);
     setShowSubscriptionForm(false);
     setFormSubmitted(false);
-    setFormData({ nome: '', email: '', telefone: '', cpf: '' });
   };
+
+  const handleCardClick = (ev) => openModal(ev);
+
+  const toggleFavorite = (id) => {
+    setFavorites(prev => {
+      const exists = prev.includes(id);
+      const next = exists ? prev.filter(x => x !== id) : [...prev, id];
+      localStorage.setItem('favorites', JSON.stringify(next));
+      return next;
+    });
+  };
+
+  const calendarDays = useMemo(() => {
+    const month = selectedCalendarDate.getMonth();
+    const year = selectedCalendarDate.getFullYear();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    return Array.from({ length: daysInMonth }).map((_, i) => ({ label: String(i + 1), iso: i + 1 }));
+  }, [selectedCalendarDate]);
+
+  const eventsByDay = useMemo(() => {
+    const map = {};
+    filteredEvents.forEach(ev => {
+      const d = new Date(ev.date).getDate();
+      if (!map[d]) map[d] = [];
+      map[d].push(ev);
+    });
+    return map;
+  }, [filteredEvents]);
 
   const handleSubscribe = () => {
     setShowSubscriptionForm(true);
@@ -92,15 +156,28 @@ const Eventos = () => {
   };
 
   return (
-    <div className="container mx-auto px-8 py-12">
-      <div className="mb-8">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-3">
-          Todos os Eventos
-        </h1>
-        <p className="text-xl text-gray-600">
-          Explore nossa agenda completa e encontre o evento perfeito para você
-        </p>
+    <>
+      
+      <div className="w-full relative h-40 md:h-48 overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=600&fit=crop)'
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-[#2B9BB8]/70 to-[#2D5A8C]/70"></div>
+        </div>
+        <div className="relative z-10 container mx-auto px-8 h-full flex flex-col justify-center items-center text-center">
+          <h1 className="text-xl md:text-3xl font-bold text-white mb-2 tracking-tight" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            Todos os Eventos
+          </h1>
+          <p className="text-sm md:text-base text-white/95 font-light tracking-wide" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            Explore nossa agenda completa e encontre o evento perfeito para você
+          </p>
+        </div>
       </div>
+
+      <div className="container mx-auto px-8 py-12">
 
       <FilterSection
         filters={filters}
@@ -108,11 +185,93 @@ const Eventos = () => {
         onClearFilters={handleClearFilters}
       />
 
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+        <div className="flex items-center gap-3">
+          <label className="text-sm text-gray-600">Ordenar:</label>
+          <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="px-3 py-2 rounded-xl border border-gray-200 bg-white">
+            <option value="dateAsc">Data (próximos)</option>
+            <option value="dateDesc">Data (mais recentes)</option>
+            <option value="popular">Mais populares</option>
+            <option value="spots">Mais vagas</option>
+          </select>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <button title="Grid" onClick={() => setViewMode('grid')} className={`px-3 py-2 rounded-xl border ${viewMode==='grid' ? 'border-[#2B9BB8] bg-[#2B9BB8]/10' : 'border-gray-200 bg-white'}`}>
+              Grid
+            </button>
+            <button title="Lista" onClick={() => setViewMode('list')} className={`px-3 py-2 rounded-xl border ${viewMode==='list' ? 'border-[#2B9BB8] bg-[#2B9BB8]/10' : 'border-gray-200 bg-white'}`}>
+              Lista
+            </button>
+            <button title="Calendário" onClick={() => setViewMode('calendar')} className={`px-3 py-2 rounded-xl border ${viewMode==='calendar' ? 'border-[#2B9BB8] bg-[#2B9BB8]/10' : 'border-gray-200 bg-white'}`}>
+              Calendário
+            </button>
+          </div>
+
+          
+        </div>
+      </div>
+
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3, 4, 5, 6].map(i => (
             <SkeletonCard key={i} />
           ))}
+        </div>
+      ) : viewMode === 'calendar' ? (
+        <div>
+          
+          <div className="mb-6 w-full bg-white p-4 rounded-2xl shadow-sm">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <button onClick={() => setSelectedCalendarDate(new Date(selectedCalendarDate.getFullYear(), selectedCalendarDate.getMonth()-1, 1))} className="px-3 py-2 rounded-xl border">◀</button>
+                <div className="font-bold">{selectedCalendarDate.toLocaleString('pt-BR', { month: 'long', year: 'numeric' })}</div>
+                <button onClick={() => setSelectedCalendarDate(new Date(selectedCalendarDate.getFullYear(), selectedCalendarDate.getMonth()+1, 1))} className="px-3 py-2 rounded-xl border">▶</button>
+              </div>
+              <div className="text-sm text-gray-600">Clique no dia para ver eventos</div>
+            </div>
+
+            <div className="grid grid-cols-7 gap-2 text-center">
+              {['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'].map(d => (
+                <div key={d} className="text-xs font-semibold text-gray-500">{d}</div>
+              ))}
+
+              {(() => {
+                const month = selectedCalendarDate.getMonth();
+                const year = selectedCalendarDate.getFullYear();
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month+1, 0).getDate();
+                const blanks = Array.from({length:firstDay}).map((_,i) => <div key={'b'+i}></div>);
+                const days = Array.from({length: daysInMonth}).map((_,i) => {
+                  const day = i+1;
+                  const has = eventsByDay[day] && eventsByDay[day].length > 0;
+                  return (
+                    <button key={day} onClick={() => setCalendarSelectedDay(day)} className={`p-2 rounded-lg ${calendarSelectedDay===day ? 'bg-[#2B9BB8]/20' : 'hover:bg-gray-100'}`}>
+                      <div className="text-sm font-medium">{day}</div>
+                      {has && <div className="mt-1 w-2 h-2 bg-[#2B9BB8] rounded-full mx-auto"></div>}
+                    </button>
+                  );
+                });
+                return [...blanks, ...days];
+              })()}
+            </div>
+          </div>
+
+          <div>
+            {calendarSelectedDay ? (
+              <div className="space-y-4">
+                <h3 className="text-lg font-bold">Eventos em {calendarSelectedDay}/{selectedCalendarDate.getMonth()+1}/{selectedCalendarDate.getFullYear()}</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {(eventsByDay[calendarSelectedDay] || []).map(ev => (
+                    <EventCard key={ev.id} event={ev} onCardClick={handleCardClick} isFavorite={favorites.includes(ev.id)} onToggleFavorite={toggleFavorite} />
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="text-gray-600">Selecione um dia do calendário para ver os eventos.</div>
+            )}
+          </div>
         </div>
       ) : filteredEvents.length > 0 ? (
         <>
@@ -121,15 +280,25 @@ const Eventos = () => {
               Mostrando <span className="font-bold gradient-brand-text">{filteredEvents.length}</span> evento(s)
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredEvents.map(event => (
-              <EventCard 
-                key={event.id} 
-                event={event}
-                onCardClick={handleCardClick}
-              />
-            ))}
-          </div>
+          {viewMode === 'list' ? (
+            <div className="space-y-4">
+              {filteredEvents.map(event => (
+                <EventCard key={event.id} event={event} onCardClick={handleCardClick} view="list" isFavorite={favorites.includes(event.id)} onToggleFavorite={toggleFavorite} />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredEvents.map(event => (
+                <EventCard 
+                  key={event.id} 
+                  event={event}
+                  onCardClick={handleCardClick}
+                  isFavorite={favorites.includes(event.id)}
+                  onToggleFavorite={toggleFavorite}
+                />
+              ))}
+            </div>
+          )}
         </>
       ) : (
         <div className="bg-white/60 backdrop-blur-xl rounded-2xl p-12 text-center">
@@ -143,7 +312,7 @@ const Eventos = () => {
         </div>
       )}
 
-      {/* Modal com Backdrop Blur */}
+      
       {selectedEvent && (
         <div 
           className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 p-6 animate-fadeIn"
@@ -153,7 +322,7 @@ const Eventos = () => {
             className="bg-white/95 backdrop-blur-xl rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Image Header */}
+            
             <div className="relative h-72 overflow-hidden rounded-t-3xl">
               <img 
                 src={selectedEvent.image} 
@@ -171,7 +340,7 @@ const Eventos = () => {
               </button>
             </div>
             
-            {/* Content */}
+            
             <div className="p-10">
               <h2 className="text-4xl font-black text-gray-800 mb-4">
                 {selectedEvent.title}
@@ -219,7 +388,7 @@ const Eventos = () => {
                 </div>
               </div>
               
-              {/* Formulário de Inscrição ou Botão */}
+              
               {formSubmitted ? (
                 <div className="bg-green-50 border-2 border-green-200 rounded-2xl p-6 text-center">
                   <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -315,6 +484,7 @@ const Eventos = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

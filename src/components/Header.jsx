@@ -43,7 +43,6 @@ const Header = ({ currentPage, onNavigate }) => {
             </span>
           </button>
           
-          {/* Menu */}
           <ul className="flex items-center gap-8">
             {menuItems.map((item) => (
               <li key={item.id}>

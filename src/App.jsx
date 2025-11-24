@@ -35,12 +35,9 @@ function App() {
         {renderPage()}
       </main>
       
-      {/* Footer Profissional */}
       <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white mt-16">
         <div className="container mx-auto px-8">
-          {/* Main Footer Content */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 py-12 border-b border-gray-700">
-            {/* Sobre */}
             <div>
               <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                 <div className="w-8 h-8 bg-[#2B9BB8] rounded-lg flex items-center justify-center">
@@ -164,7 +161,6 @@ function App() {
             </div>
           </div>
 
-          {/* Bottom Bar */}
           <div className="py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
             <p>© 2025 Portal EEC. Todos os direitos reservados.</p>
             <div className="flex gap-6">
