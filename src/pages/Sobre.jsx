@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from '../assets/logo_png.png';
 
 const Sobre = () => {
   const team = [
@@ -10,13 +11,19 @@ const Sobre = () => {
 
   return (
     <div className="w-full">
-      {/* Banner header (same height as Home hero) */}
-      <div
-        className="w-full relative h-40 md:h-48 overflow-hidden bg-center bg-no-repeat bg-cover mb-12"
-        style={{ backgroundImage: "url('/banner-sobre.png')" }}
-        role="img"
-        aria-label="Banner do Portal EEC"
-      />
+      {/* Banner header (HTML/CSS): logo + optional tagline — keeps same height as Home/Eventos */}
+      <div className="w-full relative h-40 md:h-48 mb-12">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#2B9BB8] to-[#2D5A8C]" />
+        <div className="relative z-10 container mx-auto h-full px-8 flex items-center justify-center">
+          <div className="flex items-center gap-4">
+            <img src={logo} alt="Portal EEC logo" className="w-14 h-14 md:w-16 md:h-16 rounded" />
+            <div className="text-white text-center">
+              <h1 className="text-lg md:text-2xl font-bold" style={{ fontFamily: 'Poppins, sans-serif' }}>Portal EEC</h1>
+              <p className="text-xs md:text-sm font-light">Educação · Eventos · Cultura</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className="container mx-auto px-8 py-12">
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
