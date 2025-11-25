@@ -160,10 +160,11 @@ const Home = () => {
             className="bg-white/95 backdrop-blur-xl rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative h-72 overflow-hidden rounded-t-3xl">
+            <div className="relative h-56 overflow-hidden rounded-t-3xl">
               <img 
                 src={selectedEvent.image} 
                 alt={selectedEvent.title}
+                loading="lazy"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
@@ -177,12 +178,11 @@ const Home = () => {
               </button>
             </div>
 
-            <div className="p-10">
-              <h2 className="text-4xl font-black text-gray-800 mb-4">
+            <div className="p-6">
+              <h2 className="text-2xl md:text-3xl font-black text-gray-800 mb-3">
                 {selectedEvent.title}
               </h2>
-
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+              <p className="text-base text-gray-600 mb-6 leading-relaxed">
                 {selectedEvent.description}
               </p>
 

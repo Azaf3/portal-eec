@@ -104,6 +104,7 @@ const Sobre = () => {
                 <img 
                   src={member.image} 
                   alt={member.name}
+                  loading="lazy"
                   className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-[#2B9BB8]"
                 />
                 <h3 className="text-xl font-bold text-gray-800 mb-1">{member.name}</h3>
