@@ -10,10 +10,10 @@ const Sobre = () => {
 
   return (
     <div className="w-full">
-      {/* Banner header */}
+      {/* Banner header (same height as Home hero) */}
       <div
-        className="w-full bg-center bg-no-repeat bg-cover mb-12"
-        style={{ height: '420px', backgroundImage: "url('/banner-sobre.png')" }}
+        className="w-full bg-center bg-no-repeat bg-cover mb-12 h-40 md:h-48"
+        style={{ backgroundImage: "url('/banner-sobre.png')" }}
         role="img"
         aria-label="Banner do Portal EEC"
       />
