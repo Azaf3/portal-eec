@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import logo from '../assets/logo.svg';
+import logo from '../assets/logo_png.png';
 
 const Header = ({ currentPage, onNavigate }) => {
   const [scrolled, setScrolled] = useState(false);
