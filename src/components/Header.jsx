@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import logo from '../assets/logo_png.png';
 
 const Header = ({ currentPage, onNavigate }) => {
   const [scrolled, setScrolled] = useState(false);
@@ -32,9 +33,9 @@ const Header = ({ currentPage, onNavigate }) => {
             aria-label="Voltar ao início"
           >
             <div className="w-10 h-10 rounded-full overflow-hidden bg-white shadow-md ring-2 ring-[#2B9BB8]/20 group-hover:ring-[#2B9BB8]/40 transition-all">
-              <img 
-                src="/src/assets/logo_png.png" 
-                alt="Logo Portal EEC" 
+              <img
+                src={logo}
+                alt="Logo Portal EEC"
                 className="w-full h-full object-cover"
               />
             </div>
