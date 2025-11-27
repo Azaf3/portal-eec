@@ -83,13 +83,38 @@ const Home = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log('Inscrição enviada:', { ...formData, evento: selectedEvent.title });
-    setFormSubmitted(true);
-    setTimeout(() => {
-      closeModal();
-    }, 3000);
+    const API_BASE = import.meta.env.VITE_API_URL || 'https://portal-eec-backend.onrender.com';
+    const payload = {
+      nome: formData.nome,
+      email: formData.email,
+      telefone: formData.telefone,
+      cpf: formData.cpf,
+      eventoId: selectedEvent?.id,
+    };
+
+    try {
+      const resp = await fetch(`${API_BASE}/api/subscribe`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!resp.ok) {
+        console.error('Falha ao enviar inscrição:', resp.status);
+        return;
+      }
+
+      const data = await resp.json();
+      console.log('Inscrição enviada:', data);
+      setFormSubmitted(true);
+      setTimeout(() => {
+        closeModal();
+      }, 3000);
+    } catch (err) {
+      console.error('Erro ao enviar inscrição:', err);
+    }
   };
 
   return (
